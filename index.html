@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GarnettWork — Strategic Intelligence. Engineered Growth.</title>
-<meta name="description" content="GarnettWork is a strategic consulting and business intelligence firm delivering data-driven growth, workforce strategy, and technology transformation.">
+<title>GarnettWork — Truth Before Money Moves</title>
+<meta name="description" content="GarnettWork is an independent decision layer for secondhand commerce. Paste a listing and know your Max Safe Buy before money moves — PASS, FAIL, or REFUSE, with evidence.">
 <link rel="icon" type="image/webp" href="assets/images/logo.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -24,17 +24,17 @@
 <!-- Nav -->
 <header class="nav" id="nav">
   <div class="nav-inner">
+    <!-- Logo component: swap assets/images/logo.webp to update brand mark without touching layout -->
     <a href="#top" class="brand">
       <img src="assets/images/logo.webp" alt="GarnettWork logo" class="brand-mark">
       <span class="brand-name">GARNETT<span class="accent">WORK</span></span>
     </a>
     <nav class="nav-links" id="navLinks">
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#process">Process</a>
-      <a href="#results">Results</a>
-      <a href="#testimonials">Clients</a>
-      <a href="#contact" class="nav-cta">Start a Project</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#truth-model">Truth Model</a>
+      <a href="#supported">Supported Products</a>
+      <a href="#demo">Demo</a>
+      <a href="#access" class="nav-cta">Get Access</a>
     </nav>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -50,225 +50,260 @@
     <div class="grid-lines"></div>
   </div>
   <div class="hero-content">
-    <p class="eyebrow reveal">Strategy &middot; Intelligence &middot; Execution</p>
+    <p class="eyebrow reveal">Truth Before Money Moves</p>
     <h1 class="hero-title reveal">
-      We build the <span class="italic">edge</span><br>
-      that moves you <span class="gold-text">first.</span>
+      Know your <span class="gold-text">max safe buy</span><br>
+      before money <span class="italic">moves.</span>
     </h1>
     <p class="hero-sub reveal">
-      GarnettWork is a strategic consulting house for founders and operators who refuse
-      to compete on luck. We fuse data intelligence, workforce strategy, and technology
-      to engineer outcomes — not deliver decks.
+      Paste a secondhand listing and GarnettWork checks identity, market evidence, and
+      price risk — then returns <strong>PASS</strong>, <strong>FAIL</strong>, or
+      <strong>REFUSE</strong>, with the evidence behind it. No evidence, no confident
+      answer. Less AI. More trust.
     </p>
-    <div class="hero-actions reveal">
-      <a href="#contact" class="btn btn-primary">
-        <span>Start a Project</span>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-      <a href="#services" class="btn btn-ghost">Explore Services</a>
+
+    <div class="hero-check reveal glass-card">
+      <div class="intent-row" id="intentRow">
+        <button class="intent-pill active" data-intent="BUY">BUY</button>
+        <button class="intent-pill" data-intent="SELL" disabled>SELL <span class="pill-tag">Not connected</span></button>
+        <button class="intent-pill" data-intent="TRADE" disabled>TRADE <span class="pill-tag">Not connected</span></button>
+        <button class="intent-pill" data-intent="WATCH" disabled>WATCH <span class="pill-tag">Not connected</span></button>
+        <button class="intent-pill" data-intent="VALUE" disabled>VALUE <span class="pill-tag">Not connected</span></button>
+      </div>
+      <form class="listing-form" id="listingForm">
+        <input
+          type="text"
+          id="listingInput"
+          placeholder="Paste a listing URL or description — e.g. &ldquo;PS5 Disc Edition 825GB, asking $260&rdquo;"
+          autocomplete="off"
+        >
+        <button type="submit" class="btn btn-primary">
+          <span>Check This Listing</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+      <p class="hero-check-note">Demo mode — BUY only, illustrative fixtures. See <a href="#demo">why</a> below.</p>
     </div>
   </div>
   <div class="hero-marquee">
     <div class="marquee-track">
-      <span>Strategic Planning</span><span>&bull;</span>
-      <span>Data Intelligence</span><span>&bull;</span>
-      <span>Workforce Design</span><span>&bull;</span>
-      <span>Technology Transformation</span><span>&bull;</span>
-      <span>Growth Architecture</span><span>&bull;</span>
-      <span>Strategic Planning</span><span>&bull;</span>
-      <span>Data Intelligence</span><span>&bull;</span>
-      <span>Workforce Design</span><span>&bull;</span>
-      <span>Technology Transformation</span><span>&bull;</span>
-      <span>Growth Architecture</span><span>&bull;</span>
+      <span>IDENTITY VERIFIED</span><span>&bull;</span>
+      <span>MARKET EVIDENCE</span><span>&bull;</span>
+      <span>MAX SAFE BUY</span><span>&bull;</span>
+      <span>RECEIPT</span><span>&bull;</span>
+      <span>REFUSE WHEN UNSURE</span><span>&bull;</span>
+      <span>IDENTITY VERIFIED</span><span>&bull;</span>
+      <span>MARKET EVIDENCE</span><span>&bull;</span>
+      <span>MAX SAFE BUY</span><span>&bull;</span>
+      <span>RECEIPT</span><span>&bull;</span>
+      <span>REFUSE WHEN UNSURE</span><span>&bull;</span>
     </div>
   </div>
 </section>
 
-<!-- Stats -->
-<section class="stats">
-  <div class="stats-inner">
-    <div class="stat reveal">
-      <span class="stat-num" data-count="180">0</span><span class="stat-suffix">+</span>
-      <p>Engagements delivered</p>
-    </div>
-    <div class="stat reveal">
-      <span class="stat-num" data-count="97">0</span><span class="stat-suffix">%</span>
-      <p>Client retention rate</p>
-    </div>
-    <div class="stat reveal">
-      <span class="stat-num" data-count="4.2">0</span><span class="stat-suffix">x</span>
-      <p>Average growth multiple</p>
-    </div>
-    <div class="stat reveal">
-      <span class="stat-num" data-count="12">0</span><span class="stat-suffix">yrs</span>
-      <p>Operating experience</p>
-    </div>
-  </div>
-</section>
-
-<!-- About -->
-<section class="about" id="about">
-  <div class="section-inner about-grid">
-    <div class="about-visual reveal">
-      <div class="glass-card crest-card">
-        <img src="assets/images/logo.webp" alt="GarnettWork crest" class="crest-img">
-      </div>
-    </div>
-    <div class="about-copy reveal">
-      <p class="eyebrow">Who We Are</p>
-      <h2 class="section-title">Built like a crown. Run like a system.</h2>
-      <p class="body-text">
-        GarnettWork was founded on a simple premise: most businesses don't lose because
-        they lack effort — they lose because they lack architecture. We are the strategic
-        counterpart that turns ambition into a repeatable system, pairing boardroom-level
-        thinking with hands-on, technical execution.
-      </p>
-      <p class="body-text">
-        Every engagement starts with the same discipline a chess grandmaster brings to the
-        board: see the whole position, protect the king, and play three moves ahead.
-      </p>
-      <div class="about-points">
-        <div class="point">
-          <span class="point-num">01</span>
-          <p>Data-first decision making, not gut instinct</p>
-        </div>
-        <div class="point">
-          <span class="point-num">02</span>
-          <p>Lean, senior teams — no bloated account layers</p>
-        </div>
-        <div class="point">
-          <span class="point-num">03</span>
-          <p>Systems built to outlast the engagement</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Services -->
-<section class="services" id="services">
+<!-- Truth Model -->
+<section class="truth-model" id="truth-model">
   <div class="section-inner">
-    <p class="eyebrow center reveal">What We Do</p>
-    <h2 class="section-title center reveal">Four disciplines. One outcome.</h2>
+    <p class="eyebrow center reveal">The Truth Vocabulary</p>
+    <h2 class="section-title center reveal">Three results. No hedging.</h2>
+    <p class="body-text center reveal" style="margin-left:auto;margin-right:auto;">
+      GarnettWork never converts uncertainty into a confident-sounding answer. If the
+      evidence isn't there, it says so.
+    </p>
+    <div class="truth-grid">
+      <div class="truth-card truth-pass reveal">
+        <span class="truth-badge">PASS</span>
+        <p>Identity and comparable market evidence support the asking price. This is a justified buy.</p>
+      </div>
+      <div class="truth-card truth-fail reveal">
+        <span class="truth-badge">FAIL</span>
+        <p>Identity or evidence contradicts the listing — wrong model, inflated price, or a known risk pattern.</p>
+      </div>
+      <div class="truth-card truth-refuse reveal">
+        <span class="truth-badge">REFUSE</span>
+        <p>Evidence is insufficient to say either way. GarnettWork will not guess — it tells you what's missing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works -->
+<section class="process" id="how-it-works">
+  <div class="section-inner">
+    <p class="eyebrow center reveal">How It Works</p>
+    <h2 class="section-title center reveal">One evidence pipeline, every time.</h2>
+    <div class="pipeline reveal">
+      <div class="pipeline-step"><span>listing</span></div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step"><span>identity</span></div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step"><span>market evidence</span></div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step"><span>decision</span></div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step"><span>receipt</span></div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step"><span>outcome</span></div>
+      <div class="pipeline-arrow">&rarr;</div>
+      <div class="pipeline-step pipeline-step-final"><span>Market Memory</span></div>
+    </div>
+    <p class="body-text center reveal" style="margin:32px auto 0;">
+      Every decision GarnettWork returns produces a receipt — the evidence that produced it —
+      and every outcome feeds back into Market Memory, sharpening future evidence.
+    </p>
+  </div>
+</section>
+
+<!-- Product Concepts (replaces fabricated stats) -->
+<section class="services" id="concepts">
+  <div class="section-inner">
+    <p class="eyebrow center reveal">What GarnettWork Checks</p>
+    <h2 class="section-title center reveal">Five questions, answered honestly.</h2>
     <div class="services-grid">
       <article class="service-card reveal">
         <div class="service-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 12h4l3-9 4 18 3-9h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <h3>Strategic Planning</h3>
-        <p>Clear-eyed roadmaps that turn a five-year vision into a ninety-day plan your team can actually execute.</p>
-        <a href="#contact" class="service-link">Learn more &rarr;</a>
+        <h3>Identity Verified</h3>
+        <p>Is this actually the model the seller claims — or a lookalike, a different revision, a different bundle?</p>
       </article>
       <article class="service-card reveal">
         <div class="service-icon">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 19V10M12 19V5M20 19v-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <h3>Data Intelligence</h3>
-        <p>Dashboards and modeling that replace opinion with evidence — built for operators, not analysts.</p>
-        <a href="#contact" class="service-link">Learn more &rarr;</a>
+        <h3>Market Evidence</h3>
+        <p>What do genuinely comparable listings actually support — not a rough guess, a counted sample.</p>
       </article>
       <article class="service-card reveal">
         <div class="service-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="7" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M5 21c0-4 3-6 7-6s7 2 7 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <h3>Workforce Design</h3>
-        <p>Org structures, hiring roadmaps, and incentive systems built for the company you're becoming.</p>
-        <a href="#contact" class="service-link">Learn more &rarr;</a>
+        <h3>Max Safe Buy</h3>
+        <p>The maximum price the evidence actually justifies for this item, in this condition, right now.</p>
       </article>
       <article class="service-card reveal">
         <div class="service-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 9h18M8 4v5" stroke="currentColor" stroke-width="1.5"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </div>
-        <h3>Technology Transformation</h3>
-        <p>Modern tooling and automation that removes friction so your team can move at market speed.</p>
-        <a href="#contact" class="service-link">Learn more &rarr;</a>
+        <h3>Receipt</h3>
+        <p>Every decision comes with the evidence that produced it — so you can check GarnettWork's work.</p>
+      </article>
+      <article class="service-card reveal">
+        <div class="service-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 8v5M12 16h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Refuse</h3>
+        <p>When GarnettWork doesn't know enough, it says so — instead of guessing with confidence.</p>
       </article>
     </div>
   </div>
 </section>
 
-<!-- Process -->
-<section class="process" id="process">
+<!-- Currently Supported / Factory status -->
+<section class="supported" id="supported">
   <div class="section-inner">
-    <p class="eyebrow center reveal">How We Work</p>
-    <h2 class="section-title center reveal">A system, not a sales cycle.</h2>
-    <div class="timeline">
-      <div class="timeline-item reveal">
-        <div class="timeline-marker">01</div>
-        <div class="timeline-copy">
-          <h3>Diagnose</h3>
-          <p>We audit the business end-to-end — operations, data, people, tech — and surface the three constraints actually holding you back.</p>
-        </div>
+    <p class="eyebrow center reveal">Proven Truth Support</p>
+    <h2 class="section-title center reveal">What GarnettWork can verify today.</h2>
+    <p class="body-text center reveal" style="margin:0 auto 40px;">
+      The Factory is always collecting more products, but collection is not the same as
+      proven Truth support. Only what's listed below has externally proven identity and
+      comparable-market coverage today.
+    </p>
+    <div class="supported-grid">
+      <div class="supported-card supported-pass reveal">
+        <span class="truth-badge truth-badge-sm">PASS-CAPABLE</span>
+        <h3>PlayStation 5 — Disc Edition</h3>
+        <p>Original 825GB only, when canonical identity and comparable depth are proven.</p>
       </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-marker">02</div>
-        <div class="timeline-copy">
-          <h3>Design</h3>
-          <p>We architect a plan with sequenced milestones, owners, and measurable checkpoints — no vague strategy decks.</p>
-        </div>
+      <div class="supported-card supported-pass reveal">
+        <span class="truth-badge truth-badge-sm">PASS-CAPABLE</span>
+        <h3>Nintendo Switch OLED</h3>
+        <p>Standard 64GB only, when canonical identity and comparable depth are proven.</p>
       </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-marker">03</div>
-        <div class="timeline-copy">
-          <h3>Deploy</h3>
-          <p>Our team embeds alongside yours to implement the plan, transfer the systems, and build internal ownership.</p>
-        </div>
+      <div class="supported-card supported-refuse reveal">
+        <span class="truth-badge truth-badge-sm truth-badge-refuse-sm">CURRENTLY REFUSES</span>
+        <h3>PS5 Slim — Disc 1TB</h3>
+        <p>Comparable set is currently insufficient. GarnettWork refuses rather than guess.</p>
       </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-marker">04</div>
-        <div class="timeline-copy">
-          <h3>Compound</h3>
-          <p>We stay on as a strategic partner, refining the system quarterly so gains compound instead of decay.</p>
-        </div>
+    </div>
+    <p class="factory-note reveal">
+      Everything else the Factory is collecting is <em>in progress</em>, not yet verified —
+      it will show here as PASS-capable only once proven.
+    </p>
+  </div>
+</section>
+
+<!-- Demo -->
+<section class="demo" id="demo">
+  <div class="section-inner">
+    <p class="eyebrow center reveal">Live Demo</p>
+    <h2 class="section-title center reveal">See a decision, not a promise.</h2>
+    <p class="body-text center reveal" style="margin:0 auto 20px;">
+      This demo runs on <strong>development fixtures</strong>, not a live GarnettWork backend call.
+      Real Truth decisions are produced by GarnettWork's Teaser/Truth service — this page has no
+      access to that service, so nothing here is a real result. Try pasting a PS5 Disc, a Switch OLED,
+      or a PS5 Slim 1TB listing above and scroll back down to see the fixture response.
+    </p>
+    <div class="demo-result-wrap reveal" id="demoResultWrap">
+      <div class="demo-empty" id="demoEmpty">
+        <p>No listing checked yet. Use the box in the hero above — your result will render here.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Results / Banner -->
-<section class="cta-banner" id="results">
-  <div class="section-inner cta-banner-inner reveal">
-    <h2>Ready to play the position that wins?</h2>
-    <p>Tell us where the business is today. We'll show you the three-move plan to where it needs to be.</p>
-    <a href="#contact" class="btn btn-primary btn-lg">Book a Strategy Call</a>
-  </div>
-</section>
-
-<!-- Testimonials -->
-<section class="testimonials" id="testimonials">
+<!-- Deal or Disaster -->
+<section class="deal-disaster" id="deal-or-disaster">
   <div class="section-inner">
-    <p class="eyebrow center reveal">Client Results</p>
-    <h2 class="section-title center reveal">Trusted by operators who move fast.</h2>
-    <div class="testi-grid">
-      <blockquote class="testi-card reveal">
-        <p>&ldquo;GarnettWork didn't hand us a strategy deck — they rebuilt how we make decisions. Revenue is up 3.6x in fourteen months.&rdquo;</p>
-        <footer>— Founder, Logistics Platform</footer>
-      </blockquote>
-      <blockquote class="testi-card reveal">
-        <p>&ldquo;The workforce redesign alone paid for the entire engagement in the first quarter. Sharp, senior, no fluff.&rdquo;</p>
-        <footer>— COO, Healthcare Services Group</footer>
-      </blockquote>
-      <blockquote class="testi-card reveal">
-        <p>&ldquo;They think three moves ahead. Every recommendation had the next two already mapped out.&rdquo;</p>
-        <footer>— CEO, Consumer Brand</footer>
-      </blockquote>
+    <p class="eyebrow center reveal">Deal or Disaster</p>
+    <h2 class="section-title center reveal">Two listings. One evidence pipeline.</h2>
+    <p class="body-text center reveal" style="margin:0 auto 40px;">
+      A product demonstration of how GarnettWork's decisions differ — illustrative fixtures,
+      not marketing statistics.
+    </p>
+    <div class="dd-grid">
+      <div class="dd-card dd-deal reveal">
+        <span class="truth-badge">PASS</span>
+        <h3>PS5 Disc Edition 825GB — $260</h3>
+        <p class="dd-fixture-tag">Development fixture</p>
+        <ul>
+          <li>Verified comparables: 41</li>
+          <li>Verified fair range: $255 – $295</li>
+          <li>Max Safe Buy: $280</li>
+          <li>Known risks: none flagged</li>
+        </ul>
+        <p class="dd-verdict">Asking price sits inside the fair range with room to spare. Deal.</p>
+      </div>
+      <div class="dd-card dd-disaster reveal">
+        <span class="truth-badge truth-badge-refuse">REFUSE</span>
+        <h3>PS5 Slim Disc 1TB — $310</h3>
+        <p class="dd-fixture-tag">Development fixture</p>
+        <ul>
+          <li>Verified comparables: insufficient</li>
+          <li>Verified fair range: unavailable</li>
+          <li>Max Safe Buy: not supported yet</li>
+          <li>Unknowns: comparable depth for this SKU</li>
+        </ul>
+        <p class="dd-verdict">Not enough evidence to call this one either way. GarnettWork refuses instead of guessing.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Contact -->
-<section class="contact" id="contact">
+<!-- Access -->
+<section class="contact" id="access">
   <div class="section-inner contact-grid">
     <div class="contact-copy reveal">
-      <p class="eyebrow">Get In Touch</p>
-      <h2 class="section-title">Let's architect your next move.</h2>
+      <p class="eyebrow">Get Access</p>
+      <h2 class="section-title">Truth before money moves — for you too.</h2>
       <p class="body-text">
-        Share a few details about your business and current challenge. We respond to every
-        inquiry within one business day.
+        GarnettWork is not a marketplace. It doesn't buy items, move money, or contact
+        sellers for you — it tells you the truth about a listing before you decide.
+        Tell us what you're looking to verify and we'll follow up as Truth support expands.
       </p>
       <div class="contact-info">
         <div><span>Email</span><a href="mailto:hello@garnettwork.com">hello@garnettwork.com</a></div>
-        <div><span>Based in</span><p>United States &middot; Remote-first</p></div>
+        <div><span>Status</span><p>BUY demo live &middot; SELL / TRADE / WATCH / VALUE not yet connected</p></div>
       </div>
     </div>
     <form class="contact-form glass-card reveal" id="contactForm">
@@ -283,15 +318,15 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="company">Company</label>
-        <input type="text" id="company" name="company">
+        <label for="product">What do you want verified next?</label>
+        <input type="text" id="product" name="product" placeholder="e.g. Xbox Series X, iPhone 14 Pro">
       </div>
       <div class="form-group">
-        <label for="message">What's the challenge?</label>
-        <textarea id="message" name="message" rows="4" required></textarea>
+        <label for="message">Anything else?</label>
+        <textarea id="message" name="message" rows="4"></textarea>
       </div>
       <button type="submit" class="btn btn-primary btn-full">
-        <span>Send Message</span>
+        <span>Request Access</span>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <p class="form-note" id="formNote"></p>
@@ -304,14 +339,17 @@
   <div class="section-inner footer-inner">
     <div class="footer-brand">
       <img src="assets/images/logo.webp" alt="GarnettWork logo" class="brand-mark">
-      <span class="brand-name">GARNETT<span class="accent">WORK</span></span>
+      <div class="footer-brand-text">
+        <span class="brand-name">GARNETT<span class="accent">WORK</span></span>
+        <span class="footer-tagline">Truth Before Money Moves. Less AI. More Trust.</span>
+      </div>
     </div>
     <nav class="footer-links">
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#process">Process</a>
-      <a href="#testimonials">Clients</a>
-      <a href="#contact">Contact</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#truth-model">Truth Model</a>
+      <a href="#supported">Supported Products</a>
+      <a href="#demo">Demo</a>
+      <a href="#access">Access</a>
     </nav>
     <p class="footer-copy">&copy; <span id="year"></span> GarnettWork. All rights reserved.</p>
   </div>
