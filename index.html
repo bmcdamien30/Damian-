@@ -65,11 +65,31 @@
 
     <div class="hero-check reveal glass-card">
       <div class="intent-row" id="intentRow">
-        <button class="intent-pill active" data-intent="BUY"><span class="shimmer-gold">BUY</span></button>
-        <button class="intent-pill" data-intent="SELL" disabled>SELL <span class="pill-tag">Not connected</span></button>
-        <button class="intent-pill" data-intent="TRADE" disabled>TRADE <span class="pill-tag">Not connected</span></button>
-        <button class="intent-pill" data-intent="WATCH" disabled>WATCH <span class="pill-tag">Not connected</span></button>
-        <button class="intent-pill" data-intent="VALUE" disabled>VALUE <span class="pill-tag">Not connected</span></button>
+        <button class="intent-pill active" data-intent="BUY">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 2v7m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>BUY</span>
+          <span class="pill-tag pill-tag-live">Live demo</span>
+        </button>
+        <button class="intent-pill" data-intent="SELL" disabled>
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 9V2m0 0L5 5m3-3l3 3M3 13h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>SELL</span>
+          <span class="pill-tag">Not connected</span>
+        </button>
+        <button class="intent-pill" data-intent="TRADE" disabled>
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M1.5 5h9M8 2l2.5 3L8 8M14.5 11h-9M8 14l-2.5-3L8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>TRADE</span>
+          <span class="pill-tag">Not connected</span>
+        </button>
+        <button class="intent-pill" data-intent="WATCH" disabled>
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.6"/></svg>
+          <span>WATCH</span>
+          <span class="pill-tag">Not connected</span>
+        </button>
+        <button class="intent-pill" data-intent="VALUE" disabled>
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2 2h5l7 7-5 5-7-7V2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="5" cy="5" r="1" fill="currentColor"/></svg>
+          <span>VALUE</span>
+          <span class="pill-tag">Not connected</span>
+        </button>
       </div>
       <form class="listing-form" id="listingForm">
         <input
