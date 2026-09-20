@@ -230,7 +230,7 @@ input, textarea{ font-family:inherit; }
 }
 
 .hero-watermark{
-  position: absolute; top: 35.3%; left: 50%; transform: translate(-50%,-50%);
+  position: absolute; top: 357px; left: 50%; transform: translate(-50%,-50%);
   width: min(920px, 92vw); z-index: 1; opacity: 0.13;
   filter: drop-shadow(0 0 46px rgba(212,175,55,0.4)) drop-shadow(0 30px 60px rgba(0,0,0,0.6));
   pointer-events: none; user-select: none;
@@ -558,6 +558,7 @@ input, textarea{ font-family:inherit; }
   .services-grid{ grid-template-columns: 1fr; }
   .form-row{ grid-template-columns: 1fr; }
   .hero{ padding-top: 120px; }
+  .hero-watermark{ top: 202px; }
   .section-inner{ padding: 0 20px; }
   .listing-form{ flex-direction: column; }
   .listing-form .btn{ width:100%; justify-content:center; }
