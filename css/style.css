@@ -155,6 +155,7 @@ input, textarea{ font-family:inherit; }
 .nav-inner{
   max-width: 1180px; margin:0 auto; padding: 0 32px;
   display:flex; align-items:center; justify-content:space-between;
+  position: relative;
 }
 .brand{ display:flex; align-items:center; gap:12px; margin-left: clamp(0px, 2vw, 32px); }
 .brand-mark{ width: 38px; height: 38px; object-fit:contain; }
@@ -179,15 +180,51 @@ input, textarea{ font-family:inherit; }
 }
 .nav-links a:not(.nav-cta):hover{ color: var(--text); }
 .nav-links a:not(.nav-cta):hover::after{ width:100%; }
+
+/* Desktop nav rail: centered on the page's horizontal centerline (matches the
+   hero watermark's centering), so the crown/cross gap always lines up with
+   the watermark regardless of brand or CTA width. Hidden on mobile; the
+   duplicate links inside #navLinks (.nav-link-text) cover mobile instead. */
+.nav-link-text{ display:none; }
+.nav-rail{
+  position: absolute; inset: 0;
+  display: grid; grid-template-columns: 1fr 90px 1fr;
+  align-items: center;
+  pointer-events: none;
+}
+/* Each label sits centered in a fixed-width cell (140px, wide enough for
+   "Supported Products", the longest label) rather than being spaced by a
+   gap between variable-width text. That makes cell CENTERS evenly spaced
+   regardless of label length: How It Works and Truth Model land the same
+   distance from the crown-gap's center (symmetric), and Truth Model /
+   Supported Products / Live Truth land exactly 140px apart, center to
+   center. */
+.nav-rail-left{ justify-self:end; pointer-events:auto; white-space:nowrap; width:140px; text-align:center; }
+.nav-rail-right{
+  justify-self:start; pointer-events:auto; white-space:nowrap;
+  display:grid; grid-template-columns: repeat(3, 140px); align-items:center;
+}
+.nav-rail-right a{ justify-self:center; }
+.nav-rail a{
+  font-size: 14px; font-weight: 600; color: var(--text);
+  position:relative; display:inline-block; transition: color 0.3s ease;
+}
+.nav-rail a::after{
+  content:''; position:absolute; left:0; bottom:-6px; width:0; height:1px;
+  background: var(--gold); transition: width 0.3s var(--ease);
+}
+.nav-rail a:hover{ color: var(--gold-light); }
+.nav-rail a:hover::after{ width:100%; }
 .nav-cta{
   background: var(--gold);
   color: #100c02 !important;
   padding: 10px 20px;
   border-radius: 999px;
   font-weight: 600 !important;
+  transform: translateX(35px);
   transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
-.nav-cta:hover{ transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,175,55,0.35); }
+.nav-cta:hover{ transform: translateX(35px) translateY(-2px); box-shadow: 0 8px 24px rgba(212,175,55,0.35); }
 
 .nav-toggle{
   display:none; flex-direction:column; gap:5px; background:none; border:none; padding: 6px;
@@ -232,7 +269,6 @@ input, textarea{ font-family:inherit; }
 .hero-watermark{
   position: absolute; top: 357px; left: 50%; transform: translate(-50%,-50%);
   width: min(920px, 92vw); z-index: 1; opacity: 0.13;
-  filter: drop-shadow(0 0 46px rgba(212,175,55,0.4)) drop-shadow(0 30px 60px rgba(0,0,0,0.6));
   pointer-events: none; user-select: none;
 }
 .hero-content{ position:relative; z-index:2; max-width: 820px; }
@@ -552,6 +588,10 @@ input, textarea{ font-family:inherit; }
   }
   .nav-links.open{ right: 0; }
   .nav-toggle{ display:flex; z-index: 101; }
+  .nav-rail{ display:none; }
+  .nav-link-text{ display:block; }
+  .nav-cta{ transform:none; }
+  .nav-cta:hover{ transform: translateY(-2px); }
   .nav-toggle.open span:nth-child(1){ transform: translateY(6.5px) rotate(45deg); }
   .nav-toggle.open span:nth-child(2){ opacity:0; }
   .nav-toggle.open span:nth-child(3){ transform: translateY(-6.5px) rotate(-45deg); }
