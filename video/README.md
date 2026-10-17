@@ -9,6 +9,7 @@ A 33-second, 16:9 (1920×1080) presentation with sound, in a spray-paint and not
 - `out/garnettwork.mp4`: the video, with soundtrack
 - `out/garnettwork.html`: playable page (press Sound on)
 - `stories/garnettwork.js`: the scenes and the sound cue list
+- `out/garnettwork-vertical.mp4` and `out/garnettwork-vertical.html`: the 9:16 (1080×1920) cut for TikTok, Reels and Shorts, from `stories/garnettwork-vertical.js`. It keeps the same timing and cue list, so it uses the same soundtrack.
 
 It walks the evidence pipeline from the site (listing, identity, market evidence, decision, receipt, outcome, Market Memory) using the site's PS5 development fixture, labeled EXAMPLE on screen. The soundtrack (a 96 BPM boom-bap bed plus spray, stamp, rip, printer and marker effects) is synthesized by `kit/audio.py` from the cue list:
 
