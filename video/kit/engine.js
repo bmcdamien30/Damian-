@@ -269,6 +269,27 @@
       lg.addColorStop(0.55, 'rgba(255,255,255,0)');
       lg.addColorStop(1, `rgba(0,0,0,${0.1 * tex})`);
       c.fillStyle = lg; c.fillRect(x0, y0, x1 - x0, y1 - y0);
+      if (o.lined) {
+        const L = o.lined;
+        c.strokeStyle = L.color || 'rgba(70,120,205,0.42)'; c.lineWidth = L.width || 2;
+        c.beginPath();
+        for (let y = y0 + (L.top ?? 90); y < y1; y += L.gap || 46) { c.moveTo(x0, y); c.lineTo(x1, y); }
+        c.stroke();
+        if (L.margin != null) {
+          c.strokeStyle = L.marginColor || 'rgba(222,60,60,0.55)'; c.lineWidth = 2.5;
+          c.beginPath(); c.moveTo(x0 + L.margin, y0); c.lineTo(x0 + L.margin, y1); c.stroke();
+        }
+        if (L.holes) {
+          const hx = x0 + (L.holeX ?? 40);
+          for (let i = 0; i < L.holes; i++) {
+            const hy = lerp(y0, y1, (i + 0.5) / L.holes);
+            c.fillStyle = L.holeColor || '#17161b';
+            c.beginPath(); c.arc(hx, hy, L.holeR || 15, 0, TAU); c.fill();
+            c.strokeStyle = 'rgba(0,0,0,0.25)'; c.lineWidth = 3;
+            c.beginPath(); c.arc(hx + 1.5, hy + 1.5, (L.holeR || 15) + 1, 0, TAU); c.stroke();
+          }
+        }
+      }
       c.globalCompositeOperation = 'multiply';
       grainPat.setTransform(mx);
       c.globalAlpha = alpha * 0.55 * (o.grain ?? 1) * tex;
@@ -645,6 +666,84 @@
     }
     c.restore();
   };
+  // spray-painted stroke: soft halo, hard core, overspray speckles, optional drips
+  PE.sprayLine = (pts, o = {}) => {
+    const p = o.progress ?? 1; if (p <= 0 || pts.length < 2) return;
+    const c = PE.ctx, w = o.width || 18, col = o.color || '#d4af37', seed = o.seed || 1, A = o.alpha ?? 1;
+    const path = pts.length > 2 ? catmull(pts, 5, false) : densify(pts, 5).slice(0, -1).concat([pts[1]]);
+    let s = 0; const L = [0];
+    for (let i = 1; i < path.length; i++) { s += Math.hypot(path[i][0] - path[i - 1][0], path[i][1] - path[i - 1][1]); L.push(s); }
+    const end = s * p, sub = [];
+    for (let i = 0; i < path.length; i++) {
+      if (L[i] <= end) sub.push(path[i]);
+      else { const f = (end - L[i - 1]) / (L[i] - L[i - 1] || 1); sub.push([lerp(path[i - 1][0], path[i][0], f), lerp(path[i - 1][1], path[i][1], f)]); break; }
+    }
+    if (sub.length < 2) return;
+    c.save(); c.lineCap = 'round'; c.lineJoin = 'round'; c.strokeStyle = col; c.fillStyle = col;
+    const stroke = (lw, a) => { c.globalAlpha = A * a; c.lineWidth = lw; c.beginPath(); sub.forEach((q, i) => (i ? c.lineTo(q[0], q[1]) : c.moveTo(q[0], q[1]))); c.stroke(); };
+    stroke(w * 2.8, 0.07); stroke(w * 1.8, 0.14); stroke(w * 1.2, 0.4); stroke(w * 0.82, 0.95);
+    const r = rng(seed);
+    for (let i = 0; i < sub.length; i++) for (let k = 0; k < 2; k++) {
+      const a = r() * TAU, d = w * (0.55 + r() * 1.3), rr = 0.6 + r() * r() * 2.4, al = 0.2 + r() * 0.55;
+      c.globalAlpha = A * al; c.beginPath(); c.arc(sub[i][0] + Math.cos(a) * d, sub[i][1] + Math.sin(a) * d, rr, 0, TAU); c.fill();
+    }
+    if (o.drips) {
+      const rd = rng(seed + 7);
+      for (let k = 0; k < o.drips; k++) {
+        const at = rd(), len = w * (0.8 + rd() * 2.6), dw = w * (0.12 + rd() * 0.12);
+        if (at * s > end) continue;
+        let j = 0; while (j < path.length - 1 && L[j] < at * s) j++;
+        const [x, y] = path[j]; c.globalAlpha = A * 0.95;
+        c.beginPath(); c.moveTo(x - dw, y); c.lineTo(x + dw, y); c.lineTo(x + dw * 0.7, y + len); c.lineTo(x - dw * 0.7, y + len); c.fill();
+        c.beginPath(); c.arc(x, y + len, dw * 1.3, 0, TAU); c.fill();
+      }
+    }
+    c.restore();
+  };
+  function hexRgb(h) { h = h.replace('#', ''); if (h.length === 3) h = h.split('').map((x) => x + x).join(''); const n = parseInt(h, 16); return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`; }
+  // spray splat: soft blob + radiating droplets
+  PE.splat = (x, y, r, o = {}) => {
+    const c = PE.ctx, col = o.color || '#d4af37', rr = rng(o.seed || 3), A = o.alpha ?? 1;
+    c.save();
+    const g = c.createRadialGradient(x, y, 0, x, y, r * 1.7), rgb = hexRgb(col);
+    [[0, 0.95], [0.4, 0.85], [0.58, 0.4], [0.8, 0.1], [1, 0]].forEach(([k, a]) => g.addColorStop(k, `rgba(${rgb},${a * A})`));
+    c.fillStyle = g; c.beginPath(); c.arc(x, y, r * 1.7, 0, TAU); c.fill();
+    c.fillStyle = col;
+    for (let i = 0; i < (o.n || 40); i++) {
+      const a = rr() * TAU, d = r * (1 + rr() * rr() * 2.2), s = 1 + rr() * rr() * r * 0.12;
+      c.globalAlpha = A * (0.4 + rr() * 0.6); c.beginPath(); c.arc(x + Math.cos(a) * d, y + Math.sin(a) * d, s, 0, TAU); c.fill();
+    }
+    c.restore();
+  };
+  // image, optionally as a die-cut sticker with a white border
+  const stickerCache = new Map();
+  PE.image = (img, x, y, w, h, o = {}) => {
+    if (!img || !img.width) return;
+    const c = PE.ctx;
+    let src = img, pad = 0;
+    if (o.sticker) {
+      const key = (img.src || '').length + '|' + w + '|' + h + '|' + PE.res;
+      let cv = stickerCache.get(key);
+      const b = o.border || 14;
+      if (!cv) {
+        cv = document.createElement('canvas');
+        cv.width = Math.ceil((w + b * 4) * PE.res); cv.height = Math.ceil((h + b * 4) * PE.res);
+        const g = cv.getContext('2d'); g.scale(PE.res, PE.res);
+        for (let i = 0; i < 24; i++) { const a = (i / 24) * TAU; g.drawImage(img, b * 2 + Math.cos(a) * b, b * 2 + Math.sin(a) * b, w, h); }
+        g.globalCompositeOperation = 'source-in'; g.fillStyle = o.borderColor || PE.paperWhite; g.fillRect(0, 0, w + b * 4, h + b * 4);
+        g.globalCompositeOperation = 'source-over'; g.drawImage(img, b * 2, b * 2, w, h);
+        stickerCache.set(key, cv);
+      }
+      src = cv; pad = b * 2;
+    }
+    c.save(); c.translate(x, y); if (o.rot) c.rotate(o.rot);
+    const sc = o.scale ?? 1; c.scale(sc, sc);
+    c.globalAlpha *= o.alpha ?? 1;
+    if (o.shadow !== false) { const m = c.getTransform(), ds = Math.hypot(m.a, m.b); c.shadowColor = 'rgba(0,0,0,0.4)'; c.shadowBlur = 14 * ds; c.shadowOffsetX = 5 * ds; c.shadowOffsetY = 9 * ds; }
+    c.drawImage(src, -w / 2 - pad, -h / 2 - pad, w + pad * 2, h + pad * 2);
+    c.restore();
+  };
+
   // wobbly ink / pencil line
   PE.line = (pts, o = {}) => {
     const c = PE.ctx, p = o.progress ?? 1; if (p <= 0) return;
@@ -717,17 +816,19 @@
     if (!bufs[i] || bufs[i].width !== w || bufs[i].height !== h) { bufs[i] = document.createElement('canvas'); bufs[i].width = w; bufs[i].height = h; }
     return bufs[i];
   }
-  function renderToBuf(s, lt, t, b) {
+  function renderToBuf(s, lt, t, b, transparent) {
     const prev = PE.ctx, g = b.getContext('2d');
     g.setTransform(PE.res, 0, 0, PE.res, 0, 0);
     g.globalAlpha = 1; g.globalCompositeOperation = 'source-over';
-    g.fillStyle = '#000'; g.fillRect(0, 0, PE.W, PE.H);
-    PE.ctx = g; drawScene(s, lt, t); PE.ctx = prev;
+    if (transparent) g.clearRect(0, 0, PE.W, PE.H);
+    else { g.fillStyle = '#000'; g.fillRect(0, 0, PE.W, PE.H); }
+    PE.ctx = g; PE._noWall = !!transparent; drawScene(s, lt, t); PE._noWall = false; PE.ctx = prev;
     return b;
   }
   function trWindow(tr) {
     const d = tr.dur || 1;
     if (tr.type === 'portal') return tr.dir === 'out' ? [tr.at, tr.until ?? tr.at + d] : [tr.at - d, tr.at];
+    if (tr.type === 'rip') return [tr.at, tr.at + d];
     return [tr.at - d / 2, tr.at + d / 2];
   }
   const freezeCache = new Map();
@@ -777,6 +878,23 @@
       PE._portal = b; PE._portalU = u;
       drawScene(to, t - to.start, t);
       PE._portal = null;
+      g.restore();
+      return;
+    }
+    if (tr.type === 'rip') {
+      // the old page (scene drawn without its wall) is torn off, revealing the next one underneath
+      drawScene(to, t - to.start, t);
+      const b = renderToBuf(from, t - from.start, t, buf(0), true);
+      const u = clamp((t - tr.at) / d), e = PE.ease.in(u) * 0.85 + u * 0.15;
+      const dir = tr.dir === 'right' ? 1 : -1;
+      g.save();
+      g.translate(W / 2 + dir * e * W * 0.55, H / 2 - e * H * 1.35);
+      g.rotate(dir * e * 0.5 - dir * Math.sin(u * Math.PI) * 0.06);
+      const sc = 1 + Math.sin(u * Math.PI) * 0.05; g.scale(sc, sc);
+      const m = g.getTransform(), ds = Math.hypot(m.a, m.b);
+      g.shadowColor = 'rgba(0,0,0,0.45)'; g.shadowBlur = (12 + 40 * Math.sin(u * Math.PI)) * ds;
+      g.shadowOffsetX = 10 * ds; g.shadowOffsetY = (16 + 30 * e) * ds;
+      g.drawImage(b, -W / 2, -H / 2, W, H);
       g.restore();
       return;
     }

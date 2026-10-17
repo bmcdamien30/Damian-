@@ -2,6 +2,7 @@
 /* Headless recorder.
    node record.js page.html out.mp4 [--samples 3] [--fps 30] [--from-frame A --to-frame B] [--res 1]
    node record.js page.html --stills 1.2,3.5,8 --outdir dir [--samples 1] [--res 0.5]
+   node record.js page.html --sfx events.json      (dump PE.sfx / PE.music cue list for the soundtrack)
 */
 const path = require('path');
 const fs = require('fs');
@@ -27,6 +28,15 @@ const stills = flag('stills', null), outdir = flag('outdir', 'stills');
   await page.waitForFunction(() => window.__READY === true, null, { timeout: 60000 });
   const duration = await page.evaluate(() => PE.duration);
   const grab = (t, s) => page.evaluate(([t, s]) => { PE.render(t, s); return PE.canvas.toDataURL('image/jpeg', 0.93).slice(23); }, [t, s]);
+
+  const sfxOut = flag('sfx', null);
+  if (sfxOut) {
+    const data = await page.evaluate(() => ({ duration: PE.duration, music: PE.music || null, sfx: PE.sfx || [] }));
+    fs.writeFileSync(sfxOut, JSON.stringify(data, null, 1));
+    console.log('wrote', sfxOut, data.sfx.length, 'events');
+    await browser.close();
+    return;
+  }
 
   if (stills) {
     fs.mkdirSync(outdir, { recursive: true });

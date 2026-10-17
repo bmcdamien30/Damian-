@@ -4,7 +4,7 @@
 usage: build.py stories/<name>.js out/<name>.html "Title" [poster.jpg] [--artifact]
   --artifact  strip doctype/html/head/body tags (for publishing as an Artifact)
 """
-import base64, html, os, re, sys
+import base64, html, json, os, re, sys
 
 KIT = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(KIT)
@@ -33,6 +33,16 @@ def main():
         css.append(f'@font-face{{font-family:"{fam}";src:url(data:font/woff2;base64,{b64}) format("woff2");font-weight:{wt};font-display:block}}')
     story_src = read(story)
     meta = dict(re.findall(r"^//\s*@(\w+)\s+(.*)$", story_src, re.M))
+    mimes = {".webp": "image/webp", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg"}
+    assets = {}
+    for name, path in re.findall(r"^//\s*@asset\s+(\w+)\s+(\S+)\s*$", story_src, re.M):
+        ext = os.path.splitext(path)[1].lower()
+        b64 = base64.b64encode(open(os.path.join(ROOT, path), "rb").read()).decode()
+        assets[name] = f"data:{mimes.get(ext, 'application/octet-stream')};base64,{b64}"
+    audio_html = ""
+    if meta.get("audio") and os.path.exists(os.path.join(ROOT, meta["audio"].strip())):
+        ab = base64.b64encode(open(os.path.join(ROOT, meta["audio"].strip()), "rb").read()).decode()
+        audio_html = f'<audio id="sound" preload="auto" src="data:audio/mp4;base64,{ab}"></audio>'
     poster_html = ""
     if poster:
         pb = base64.b64encode(open(poster, "rb").read()).decode()
@@ -50,6 +60,10 @@ def main():
         "{{ENGINE}}": read(os.path.join(KIT, "engine.js")),
         "{{CHARACTER}}": read(os.path.join(KIT, "character.js")),
         "{{STORY}}": story_src,
+        "{{ASSETS}}": json.dumps(assets),
+        "{{AUDIO}}": audio_html,
+        "{{ASPECT}}": meta.get("aspect", "9 / 16").strip(),
+        "{{MAXW}}": meta.get("maxw", "460px").strip(),
     }
     for k, v in rep.items():
         page = page.replace(k, v)

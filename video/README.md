@@ -1,6 +1,25 @@
-# Everything ChatGPT Does (paper-cut video)
+# Paper-cut videos
 
-A 73-second, 9:16 (1080×1920) explainer about what ChatGPT can do, made in a torn-paper and spray-stencil collage style. Every frame is drawn in code.
+Two short videos drawn entirely in code, plus the kit that makes them.
+
+## GarnettWork: How Market Memory Is Made
+
+A 33-second, 16:9 (1920×1080) presentation with sound, in a spray-paint and notebook-paper style.
+
+- `out/garnettwork.mp4`: the video, with soundtrack
+- `out/garnettwork.html`: playable page (press Sound on)
+- `stories/garnettwork.js`: the scenes and the sound cue list
+
+It walks the evidence pipeline from the site (listing, identity, market evidence, decision, receipt, outcome, Market Memory) using the site's PS5 development fixture, labeled EXAMPLE on screen. The soundtrack (a 96 BPM boom-bap bed plus spray, stamp, rip, printer and marker effects) is synthesized by `kit/audio.py` from the cue list:
+
+```bash
+node kit/record.js out/garnettwork.html --sfx cues.json
+python3 kit/audio.py cues.json soundtrack.wav
+```
+
+## Everything ChatGPT Does
+
+A 73-second, 9:16 (1080×1920) silent explainer about what ChatGPT can do, made in a torn-paper and spray-stencil collage style. Every frame is drawn in code.
 
 - `out/chatgpt.mp4`: the video to post (silent; captions carry the story)
 - `out/chatgpt.html`: the same animation as a playable web page
@@ -37,7 +56,8 @@ node kit/record.js out/chatgpt.html --stills 1.2,8.5 --outdir stills --res 0.5 -
 
 ## Kit
 
-- `kit/engine.js`: paper renderer (torn edges, fringe, grain, bevel, shadows, 8 Hz boil), springs, camera, captions, stamps, spray-stencil lettering, and transitions (portal in/out, bleed, whip, torn-sheet wipes)
+- `kit/engine.js`: paper renderer (torn edges, fringe, grain, bevel, shadows, 8 Hz boil), springs, camera, captions, stamps, spray-stencil lettering, spray strokes and splats, lined writing paper, image stickers, and transitions (portal in/out, bleed, whip, page rip, torn-sheet wipes)
+- `kit/audio.py`: soundtrack synthesizer (music bed and sound effects from oscillators and filtered noise)
 - `kit/character.js`: the original character "Pip" with rigged arms, blink, breathing and props
 - `fonts/`: Big Shoulders Stencil Display and Archivo Black (SIL Open Font License), Permanent Marker (Apache 2.0)
 

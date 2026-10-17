@@ -31,14 +31,14 @@ body {
   padding-block: 20px;
   box-sizing: border-box;
 }
-.wrap { max-width: 460px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+.wrap { max-width: {{MAXW}}; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
 h1 {
   font-family: var(--display); font-weight: 900; font-size: clamp(34px, 9vw, 52px);
   line-height: .95; margin: 0; letter-spacing: .01em; text-wrap: balance; color: var(--sun);
 }
 h1 span { color: var(--paper); }
 .stage {
-  position: relative; width: 100%; max-width: 100%; aspect-ratio: 9 / 16;
+  position: relative; width: 100%; max-width: 100%; aspect-ratio: {{ASPECT}};
   background: var(--desk-2); border-radius: 6px; overflow: hidden;
   box-shadow: 0 18px 40px rgba(0,0,0,.45);
 }
@@ -70,11 +70,13 @@ input[type=range] { flex: 1; min-width: 0; accent-color: var(--tomato); }
   </div>
   <div class="bar">
     <button id="play" type="button">Pause</button>
+    <button id="snd" type="button" hidden>Sound on</button>
     <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="Seek">
     <span class="time" id="time">0:00 / 0:00</span>
   </div>
   <p class="sources">{{SOURCES}}</p>
 </div>
+{{AUDIO}}
 <script>
 {{ENGINE}}
 </script>
@@ -89,6 +91,8 @@ input[type=range] { flex: 1; min-width: 0; accent-color: var(--tomato); }
     await Promise.all(['900 100px "PStencil"', '700 100px "PStencil7"', '100px "PHead"', '100px "PHand"'].map((f) => document.fonts.load(f)));
   } catch (e) {}
   PE.res = REC ? (window.__RES || 1) : 0.5;
+  const ASSETS = {{ASSETS}};
+  PE.loadImage = (src) => new Promise((res) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = src; });
   // ---- story ----
 {{STORY}}
   // ---- player ----
@@ -102,9 +106,16 @@ input[type=range] { flex: 1; min-width: 0; accent-color: var(--tomato); }
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let playing = !reduce, t = reduce ? 2 : 0, last = performance.now(), dragging = false;
   btn.textContent = playing ? 'Pause' : 'Play';
-  btn.addEventListener('click', () => { playing = !playing; btn.textContent = playing ? 'Pause' : 'Play'; last = performance.now(); });
-  scrub.addEventListener('input', () => { dragging = true; t = (scrub.value / 1000) * PE.duration; draw(); });
-  scrub.addEventListener('change', () => { dragging = false; last = performance.now(); });
+  const audio = document.getElementById('sound'), snd = document.getElementById('snd');
+  let soundOn = false;
+  const syncAudio = () => { if (!audio || !soundOn) return; audio.currentTime = t; if (playing && !dragging) audio.play().catch(() => {}); else audio.pause(); };
+  if (audio && snd) {
+    snd.hidden = false;
+    snd.addEventListener('click', () => { soundOn = !soundOn; snd.textContent = soundOn ? 'Sound off' : 'Sound on'; if (soundOn) syncAudio(); else audio.pause(); });
+  }
+  btn.addEventListener('click', () => { playing = !playing; btn.textContent = playing ? 'Pause' : 'Play'; last = performance.now(); syncAudio(); });
+  scrub.addEventListener('input', () => { dragging = true; t = (scrub.value / 1000) * PE.duration; if (audio && soundOn) audio.pause(); draw(); });
+  scrub.addEventListener('change', () => { dragging = false; last = performance.now(); syncAudio(); });
   function draw() {
     PE.render(t, 1);
     if (poster) poster.hidden = true;
@@ -113,7 +124,10 @@ input[type=range] { flex: 1; min-width: 0; accent-color: var(--tomato); }
   }
   function loop(now) {
     const dt = Math.min(0.1, (now - last) / 1000); last = now;
-    if (playing && !dragging) { t += dt; if (t >= PE.duration) t = 0; }
+    if (playing && !dragging) {
+      if (soundOn && audio && !audio.paused) t = audio.currentTime; else t += dt;
+      if (t >= PE.duration) { t = 0; syncAudio(); }
+    }
     if (playing || dragging) draw();
     requestAnimationFrame(loop);
   }
