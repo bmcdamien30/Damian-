@@ -24,7 +24,7 @@ A 73-second, 9:16 (1080×1920) silent explainer about what ChatGPT can do, made 
 - `out/chatgpt.mp4`: the video to post (silent; captions carry the story)
 - `out/chatgpt.html`: the same animation as a playable web page
 
-## Scenes
+### Scenes
 
 | Time | Scene | What it covers |
 |---|---|---|
@@ -44,7 +44,7 @@ A 73-second, 9:16 (1080×1920) silent explainer about what ChatGPT can do, made 
 
 Facts were checked on Oct 16, 2026 against OpenAI's release notes, help center and announcements, plus TechCrunch. The full source list is in the comment header of `stories/chatgpt.js`.
 
-## Rebuild
+### Rebuild
 
 ```bash
 python3 kit/build.py stories/chatgpt.js out/chatgpt.html "Everything ChatGPT Does" [poster.jpg]
@@ -61,4 +61,4 @@ node kit/record.js out/chatgpt.html --stills 1.2,8.5 --outdir stills --res 0.5 -
 - `kit/character.js`: the original character "Pip" with rigged arms, blink, breathing and props
 - `fonts/`: Big Shoulders Stencil Display and Archivo Black (SIL Open Font License), Permanent Marker (Apache 2.0)
 
-No logos or real people are drawn; company names appear only as text.
+No real people or other companies' logos are drawn; other companies appear only as text. The GarnettWork video uses GarnettWork's own lion logo.
