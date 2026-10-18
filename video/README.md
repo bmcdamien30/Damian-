@@ -18,6 +18,19 @@ node kit/record.js out/garnettwork.html --sfx cues.json
 python3 kit/audio.py cues.json soundtrack.wav
 ```
 
+## Building GarnettWork (foundry)
+
+A 15-second, 9:16 (1080×1920) cinematic sequence with sound: a foundry gate opens out of the dark, a ladle of molten gold swings in on a chain and stops three-quarters of the way across, tips and pours into a wall of flames, "Building GarnettWork" is cast from the gold and cools to polished metal, and the camera dives into the top loop of the B until the screen is black.
+
+- `out/forge.mp4`: with sound; `out/forge-silent.mp4`: the same picture with no audio track
+- `out/forge.html`: playable page (press Sound on)
+- `stories/forge.js`: the shot; `kit/forge_audio.py`: its soundtrack
+- `assets/forge-glyphs.json`: vector outlines of the words in Big Shoulders Display ExtraBold, plus the B's upper counter that the camera dives into (generated with opentype.js), so the letters stay sharp at 150× zoom
+
+```bash
+node kit/record.js out/forge.html --sfx cues.json && python3 kit/forge_audio.py cues.json forge.wav
+```
+
 ## Everything ChatGPT Does
 
 A 73-second, 9:16 (1080×1920) silent explainer about what ChatGPT can do, made in a torn-paper and spray-stencil collage style. Every frame is drawn in code.
@@ -60,6 +73,6 @@ node kit/record.js out/chatgpt.html --stills 1.2,8.5 --outdir stills --res 0.5 -
 - `kit/engine.js`: paper renderer (torn edges, fringe, grain, bevel, shadows, 8 Hz boil), springs, camera, captions, stamps, spray-stencil lettering, spray strokes and splats, lined writing paper, image stickers, and transitions (portal in/out, bleed, whip, page rip, torn-sheet wipes)
 - `kit/audio.py`: soundtrack synthesizer (music bed and sound effects from oscillators and filtered noise)
 - `kit/character.js`: the original character "Pip" with rigged arms, blink, breathing and props
-- `fonts/`: Big Shoulders Stencil Display and Archivo Black (SIL Open Font License), Permanent Marker (Apache 2.0)
+- `fonts/`: Big Shoulders Stencil Display, Big Shoulders Display and Archivo Black (SIL Open Font License), Permanent Marker (Apache 2.0)
 
 No real people or other companies' logos are drawn; other companies appear only as text. The GarnettWork video uses GarnettWork's own lion logo.

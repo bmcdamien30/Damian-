@@ -37,6 +37,9 @@ def main():
     assets = {}
     for name, path in re.findall(r"^//\s*@asset\s+(\w+)\s+(\S+)\s*$", story_src, re.M):
         ext = os.path.splitext(path)[1].lower()
+        if ext == ".json":
+            assets[name] = json.load(open(os.path.join(ROOT, path)))
+            continue
         b64 = base64.b64encode(open(os.path.join(ROOT, path), "rb").read()).decode()
         assets[name] = f"data:{mimes.get(ext, 'application/octet-stream')};base64,{b64}"
     audio_html = ""

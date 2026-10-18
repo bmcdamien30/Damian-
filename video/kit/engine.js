@@ -994,9 +994,12 @@
   function overlay(g) {
     const W = PE.W, H = PE.H;
     g.setTransform(PE.res, 0, 0, PE.res, 0, 0);
-    g.globalCompositeOperation = 'multiply'; g.globalAlpha = 0.28;
-    g.fillStyle = toothPat; g.fillRect(0, 0, W, H);
-    g.globalAlpha = 1; g.globalCompositeOperation = 'source-over';
+    if (PE.tooth !== false) {
+      g.globalCompositeOperation = 'multiply'; g.globalAlpha = 0.28;
+      g.fillStyle = toothPat; g.fillRect(0, 0, W, H);
+      g.globalAlpha = 1; g.globalCompositeOperation = 'source-over';
+    }
+    if (PE.vignette === false) return;
     const v = g.createRadialGradient(W / 2, H * 0.48, H * 0.35, W / 2, H / 2, H * 0.78);
     v.addColorStop(0, 'rgba(20,10,0,0)'); v.addColorStop(1, 'rgba(20,10,0,0.3)');
     g.fillStyle = v; g.fillRect(0, 0, W, H);
